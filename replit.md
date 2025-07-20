@@ -102,12 +102,18 @@ The application uses three main database tables:
 
 ## Recent Changes: Latest modifications with dates
 
-### July 20, 2025 - Replit Agent Migration Completed and Standalone Server Fixed
+### July 20, 2025 - Replit Agent Migration Completed and Standalone Server Database Issues Fixed
 - **Successful Migration to Standard Replit Environment**: Complete migration from Replit Agent to standard Replit environment
   - Set up PostgreSQL database with proper schema initialization using drizzle-kit push
   - Fixed database connection issues and installed all required dependencies
   - Application server now running successfully on port 5000 with full functionality
   - All API endpoints working correctly (stream status, videos, system config, stream controls)
+- **Standalone Server Database Column Issues Completely Fixed**: Resolved all column naming inconsistencies in server-standalone.cjs
+  - Fixed "playlist_order does not exist" error by converting all database queries to use snake_case column names
+  - Updated property access in JavaScript code to match database schema (current_video_id, stream_key, etc.)
+  - Renamed server-standalone.js to server-standalone.cjs to fix CommonJS/ES modules compatibility
+  - Comprehensive testing confirms all functionality working: Videos API, Stream Status, Stream Config, System Config, Playlist Management
+  - Standalone server verified ready for external Docker deployment with full feature parity
 - **Fixed Standalone Server ES Module Issues**: Resolved critical CommonJS/ES module compatibility problems
   - Converted server-standalone.js from ES module imports to CommonJS require statements
   - Fixed async/await usage in dependency initialization functions
