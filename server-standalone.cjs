@@ -533,7 +533,7 @@ app.post('/api/stream/loop/disable', async (req, res) => {
 app.get('/api/stream/loop/status', async (req, res) => {
   try {
     const result = await db.query('SELECT loop_playlist FROM stream_status ORDER BY id DESC LIMIT 1');
-    const loopEnabled = result.rows[0]?.loopPlaylist || false;
+    const loopEnabled = result.rows[0]?.loop_playlist || false;
     
     res.json({ 
       loopEnabled,
@@ -1120,7 +1120,7 @@ class RTMPStreamManager {
     try {
       // Find current video index
       const currentStatus = await db.query('SELECT * FROM stream_status ORDER BY id DESC LIMIT 1');
-      const currentVideoId = currentStatus.rows[0]?.currentVideoId;
+      const currentVideoId = currentStatus.rows[0]?.current_video_id;
       
       if (currentVideoId) {
         this.currentVideoIndex = this.playlist.findIndex(v => v.id === currentVideoId);
