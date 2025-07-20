@@ -298,7 +298,19 @@ app.get('/api/stream-config', async (req, res) => {
         audioQuality: 128
       });
     } else {
-      res.json(result.rows[0]);
+      // Convert snake_case columns to camelCase for frontend compatibility
+      const config = result.rows[0];
+      res.json({
+        id: config.id,
+        platform: config.platform,
+        streamKey: config.stream_key,
+        rtmpUrl: config.rtmp_url,
+        resolution: config.resolution,
+        framerate: config.framerate,
+        bitrate: config.bitrate,
+        audioQuality: config.audio_quality,
+        isActive: config.is_active
+      });
     }
   } catch (error) {
     console.error('Error fetching stream config:', error);
