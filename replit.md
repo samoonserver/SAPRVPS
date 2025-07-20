@@ -124,6 +124,11 @@ The application uses three main database tables:
     - Updated server-standalone.cjs default port configuration  
     - Updated all test files to use port 5000 for consistency
     - Maintains feature parity between main and standalone versions
+  - **Fixed Critical FFmpeg Command Syntax Error**: Resolved streaming failures due to malformed FFmpeg arguments
+    - Fixed buildFFmpegArgs function argument order causing "Invalid argument" and "Requested output format '-vf' is not known" errors
+    - Corrected video filter (-vf scale=width:height) positioning in command to prevent FFmpeg syntax errors
+    - Video scaling now works correctly for resolution changes (1920x1080 → 1280x720, etc.)
+    - Streaming should now work properly without FFmpeg command syntax issues
 - **Fixed Standalone Server ES Module Issues**: Resolved critical CommonJS/ES module compatibility problems
   - Converted server-standalone.js from ES module imports to CommonJS require statements
   - Fixed async/await usage in dependency initialization functions

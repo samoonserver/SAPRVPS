@@ -1196,20 +1196,24 @@ class RTMPStreamManager {
       '-bufsize', `${(config.bitrate || 2500) * 2}k`, // Buffer size
       '-r', String(config.framerate || 30), // Frame rate
       '-g', String((config.framerate || 30) * 2), // GOP size
+    ];
+
+    // Add resolution scaling if specified (must come before audio settings)
+    if (config.resolution && config.resolution !== 'original') {
+      const [width, height] = config.resolution.split('x');
+      if (width && height) {
+        args.push('-vf', `scale=${width}:${height}`);
+      }
+    }
+
+    // Add audio settings
+    args.push(
       '-c:a', 'aac', // Audio codec
       '-b:a', '128k', // Audio bitrate
       '-ar', '44100', // Audio sample rate
       '-f', 'flv', // Output format
       outputUrl // Output URL
-    ];
-
-    // Add resolution scaling if specified
-    if (config.resolution && config.resolution !== 'original') {
-      const [width, height] = config.resolution.split('x');
-      if (width && height) {
-        args.splice(-2, 0, '-vf', `scale=${width}:${height}`);
-      }
-    }
+    );
 
     return args;
   }
