@@ -120,6 +120,10 @@ The application uses three main database tables:
     - Stream status correctly tracks loop state and current video
     - Automatic playlist progression ready for uninterrupted 24/7 broadcasting
   - Standalone server verified ready for external Docker deployment with full feature parity including 24/7 loop streaming
+  - **Port Configuration Updated**: Changed standalone server default port from 3000 to 5000 to match main application
+    - Updated server-standalone.cjs default port configuration  
+    - Updated all test files to use port 5000 for consistency
+    - Maintains feature parity between main and standalone versions
 - **Fixed Standalone Server ES Module Issues**: Resolved critical CommonJS/ES module compatibility problems
   - Converted server-standalone.js from ES module imports to CommonJS require statements
   - Fixed async/await usage in dependency initialization functions
